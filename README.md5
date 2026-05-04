@@ -1,0 +1,48 @@
+# Student Counseling Need Prediction
+
+Predicts whether a student needs mental health counseling using a **Gradient Boosting Classifier**.
+
+## Requirements
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn joblib
+```
+
+## Usage
+
+1. Set `BASE_PATH` in the script to your local folder path.
+2. Place `student_mental_health.csv` in that folder.
+3. Run:
+
+```bash
+python student_counseling_gb.py
+```
+
+## Input Features
+
+16 features including `cgpa`, `anxiety_score`, `depression_score`, `sleep_hours`, `academic_pressure`, `gender`, `physical_activity`, and more.
+
+**Target:** `needs_counseling` → `0` (No) or `1` (Yes)
+
+## Outputs
+
+| File | Description |
+|------|-------------|
+| `eda_plots.png` | Exploratory data analysis charts |
+| `model_results.png` | Confusion matrix, ROC curve, feature importances |
+| `counseling_model.pkl` | Saved model (load with `joblib`) |
+
+## Model
+
+- Algorithm: `GradientBoostingClassifier`
+- Estimators: 100
+- Validation: 5-fold stratified cross-validation
+- Train/Test split: 80/20
+
+## Load Saved Model
+
+```python
+import joblib
+model = joblib.load('counseling_model.pkl')
+prob = model.predict_proba(df_input)[0][1]
+```
